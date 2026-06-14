@@ -54,6 +54,20 @@ alter table room_peers enable row level security;
 -- or configure standard Anon Public read/write rules. 
 -- Here are both patterns for development and production:
 
+-- Drop existing policies if they already exist, to ensure idempotent setup.
+drop policy if exists "Allow public read rooms" on rooms;
+drop policy if exists "Allow public insert rooms" on rooms;
+drop policy if exists "Allow public update rooms" on rooms;
+
+drop policy if exists "Allow public read strokes" on strokes;
+drop policy if exists "Allow public insert strokes" on strokes;
+drop policy if exists "Allow public update strokes" on strokes;
+
+drop policy if exists "Allow public read peers" on room_peers;
+drop policy if exists "Allow public insert peers" on room_peers;
+drop policy if exists "Allow public update peers" on room_peers;
+drop policy if exists "Allow public delete peers" on room_peers;
+
 -- [DEVELOPMENT / PUBLIC ANNON CONTROLS]
 -- These policies allow read & write access to anyone using the anon key.
 -- It enables easy development and debugging.
