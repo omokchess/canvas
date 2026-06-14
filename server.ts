@@ -16,24 +16,32 @@ app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 // ----------------------------------------------------
 // DB CONFIGURATION AND LAZY FALLBACK STORE
 // ----------------------------------------------------
-const SUPABASE_URL = process.env.SUPABASE_URL || "";
-const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || "";
-const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || "";
+const SUPABASE_URL = (process.env.SUPABASE_URL || "").trim().replace(/^['"]|['"]$/g, "");
+const SUPABASE_ANON_KEY = (process.env.SUPABASE_ANON_KEY || "").trim().replace(/^['"]|['"]$/g, "");
+const SUPABASE_SERVICE_ROLE_KEY = (process.env.SUPABASE_SERVICE_ROLE_KEY || "").trim().replace(/^['"]|['"]$/g, "");
 
 let supabase: any = null;
 let isFallbackMode = true;
 let fallbackReason = "No environment variables configured.";
 
-if (SUPABASE_URL && (SUPABASE_SERVICE_ROLE_KEY ?? SUPABASE_ANON_KEY)) {
+console.log("Initializing Supabase integration...");
+console.log("SUPABASE_URL configured:", SUPABASE_URL ? "YES" : "NO");
+console.log("SUPABASE_ANON_KEY configured:", SUPABASE_ANON_KEY ? "YES" : "NO");
+
+const activeKey = SUPABASE_SERVICE_ROLE_KEY || SUPABASE_ANON_KEY;
+
+if (SUPABASE_URL && activeKey) {
   try {
-    const key = SUPABASE_SERVICE_ROLE_KEY || SUPABASE_ANON_KEY;
-    supabase = createClient(SUPABASE_URL, key);
+    supabase = createClient(SUPABASE_URL, activeKey);
     isFallbackMode = false;
     fallbackReason = "";
+    console.log("Successfully initialized Supabase client!");
   } catch (err: any) {
     console.error("Error creating Supabase client:", err.message);
     fallbackReason = `Supabase initialization error: ${err.message}`;
   }
+} else {
+  console.warn("Supabase credentials missing. Running in-memory fallback store.");
 }
 
 // In-Memory Database Fallbacks
