@@ -16,9 +16,9 @@ app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 // ----------------------------------------------------
 // DB CONFIGURATION AND LAZY FALLBACK STORE
 // ----------------------------------------------------
-const SUPABASE_URL = (process.env.SUPABASE_URL || "").trim().replace(/^['"]|['"]$/g, "");
-const SUPABASE_ANON_KEY = (process.env.SUPABASE_ANON_KEY || "").trim().replace(/^['"]|['"]$/g, "");
-const SUPABASE_SERVICE_ROLE_KEY = (process.env.SUPABASE_SERVICE_ROLE_KEY || "").trim().replace(/^['"]|['"]$/g, "");
+const SUPABASE_URL = "https://qynhcgineyysawgxfebq.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF5bmhjZ2luZXl5c2F3Z3hmZWJxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEzODI2OTMsImV4cCI6MjA5Njk1ODY5M30.S98gSTEQEAHDoP4EZwMo15ci9Zn9ejd2FzgVbAKb7w4";
+const SUPABASE_SERVICE_ROLE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF5bmhjZ2luZXl5c2F3Z3hmZWJxIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4MTM4MjY5MywiZXhwIjoyMDk2OTU4NjkzfQ.zIlrbYespnLiR4Z1ffvqRVBmBATRVwAp_VSpl--Qgdk";
 
 let supabase: any = null;
 let isFallbackMode = true;
