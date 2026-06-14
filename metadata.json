@@ -1,0 +1,6 @@
+{
+  "name": "P2P Collaborative Drawing Board",
+  "description": "A real-time, peer-to-peer collaborative drawing canvas powered by PeerJS and Supabase storage.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
